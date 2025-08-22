@@ -1,24 +1,28 @@
 #pragma once
 #include "esp_camera.h"
 
-inline void setupCameraPins(camera_config_t &config) {
-  config.pin_pwdn  = -1;   //  PWDN/RESET
-  config.pin_reset = -1;
+#ifndef CAM_XCLK_GPIO
+  #define CAM_XCLK_GPIO 10   // prueba 10; si no, cambia a 15 en platformio.ini
+#endif
 
-  config.pin_xclk      = 15;
-  config.pin_sccb_sda  = 4;  // SIOD
-  config.pin_sccb_scl  = 5;  // SIOC
+inline void fillCameraPins(camera_config_t& c) {
+  c.pin_pwdn  = -1;
+  c.pin_reset = -1;
 
-  config.pin_d7 = 18;
-  config.pin_d6 = 16;
-  config.pin_d5 = 14;
-  config.pin_d4 = 12;
-  config.pin_d3 = 10;
-  config.pin_d2 = 8;
-  config.pin_d1 = 9;
-  config.pin_d0 = 11;
+  c.pin_xclk     = CAM_XCLK_GPIO;
+  c.pin_sccb_sda = 4;   // SIOD
+  c.pin_sccb_scl = 5;   // SIOC
 
-  config.pin_vsync = 6;
-  config.pin_href  = 7;
-  config.pin_pclk  = 13;
+  c.pin_d7 = 18;
+  c.pin_d6 = 16;
+  c.pin_d5 = 14;
+  c.pin_d4 = 12;
+  c.pin_d3 = 10;
+  c.pin_d2 = 8;
+  c.pin_d1 = 9;
+  c.pin_d0 = 11;
+
+  c.pin_vsync = 6;
+  c.pin_href  = 7;
+  c.pin_pclk  = 13;
 }
